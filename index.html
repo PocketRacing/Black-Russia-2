@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLACK RUSSIA — Аккаунт</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#080808;color:#fff;font-family:Arial,sans-serif;display:grid;place-items:center;padding:20px}
+.card{width:100%;max-width:380px;background:#111;padding:30px;border:1px solid #292929;border-radius:10px}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px;margin-bottom:32px}
+.logo span{color:#e50914}
+.tag{color:#e50914;font-size:10px;letter-spacing:3px;margin-bottom:12px}
+h1{font-size:27px;margin-bottom:9px}
+.sub{font-size:13px;color:#888;margin-bottom:27px;line-height:1.5}
+label{display:block;font-size:12px;margin-bottom:8px}
+input{width:100%;padding:13px;background:#090909;border:1px solid #303030;border-radius:5px;color:#fff;outline:none;margin-bottom:18px}
+input:focus{border-color:#e50914}
+button{cursor:pointer}
+.submit{width:100%;padding:14px;background:#e50914;color:white;border:0;border-radius:5px;font-weight:bold;letter-spacing:1px}
+.submit:hover{background:#bd0710}
+.switch{text-align:center;color:#888;font-size:12px;margin-top:23px}
+.link{background:none;border:0;color:#e50914;font-weight:bold;margin-left:5px}
+.msg{font-size:12px;color:#ff646b;margin-bottom:15px;line-height:1.5}
+footer{text-align:center;color:#555;font-size:10px;margin-top:25px;letter-spacing:1px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div>
+<section class="card">
+  <div class="logo">BLACK <span>RUSSIA</span></div>
+  <div class="tag">АККАУНТ ИГРОКА</div>
+  <h1 id="title">С возвращением!</h1>
+  <p class="sub" id="subtitle">Войдите, чтобы открыть свой аккаунт.</p>
+  <div class="msg" id="msg"></div>
+
+  <form id="form">
+    <label for="username">Имя пользователя</label>
+    <input id="username" placeholder="Введите имя пользователя"
+      minlength="3" maxlength="20" required autocomplete="username">
+
+    <label for="password">Пароль</label>
+    <input id="password" type="password" placeholder="Введите пароль"
+      minlength="6" required autocomplete="current-password">
+
+    <div id="confirmBox" class="hidden">
+      <label for="confirm">Повторите пароль</label>
+      <input id="confirm" type="password" placeholder="Введите пароль ещё раз"
+        minlength="6">
+    </div>
+
+    <button class="submit" id="submit" type="submit">ВОЙТИ</button>
+  </form>
+
+  <div class="switch">
+    <span id="switchText">Нет аккаунта?</span>
+    <button class="link" id="switch" type="button">Регистрация</button>
+  </div>
+</section>
+<footer>BLACK RUSSIA RP · ФАН-ПРОЕКТ</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let register=false;
+
+$("switch").onclick=()=>{
+  register=!register;
+  $("title").textContent=register?"Создать аккаунт":"С возвращением!";
+  $("subtitle").textContent=register
+    ?"Зарегистрируйтесь, чтобы начать."
+    :"Войдите, чтобы открыть свой аккаунт.";
+  $("submit").textContent=register?"ЗАРЕГИСТРИРОВАТЬСЯ":"ВОЙТИ";
+  $("switchText").textContent=register?"Уже есть аккаунт?":"Нет аккаунта?";
+  $("switch").textContent=register?"Войти":"Регистрация";
+  $("confirmBox").classList.toggle("hidden",!register);
+  $("confirm").required=register;
+  $("password").autocomplete=register?"new-password":"current-password";
+  $("msg").textContent="";
+};
+
+$("form").onsubmit=e=>{
+  e.preventDefault();
+  const name=$("username").value.trim();
+  const pass=$("password").value;
+  const key=name.toLowerCase();
+  let users={};
+
+  try{
+    users=JSON.parse(localStorage.getItem("br_users")||"{}");
+  }catch{}
+
+  if(register){
+    if(pass!==$("confirm").value){
+      $("msg").textContent="Пароли не совпадают.";
+      return;
+    }
+    if(users[key]){
+      $("msg").textContent="Это имя пользователя уже занято.";
+      return;
+    }
+    users[key]={username:name,password:pass};
+    try{
+      localStorage.setItem("br_users",JSON.stringify(users));
+    }catch{
+      $("msg").textContent="Не удалось сохранить аккаунт в браузере.";
+      return;
+    }
+  }else{
+    if(!users[key]||users[key].password!==pass){
+      $("msg").textContent="Неверное имя пользователя или пароль.";
+      return;
+    }
+  }
+
+  sessionStorage.setItem("br_current_user",name);
+  location.href="account/account.html";
+};
+</script>
+</body>
+</html>
