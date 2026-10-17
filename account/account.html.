@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLACK RUSSIA — Личный кабинет</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080808;color:#fff;font-family:Arial,sans-serif;min-height:100vh}
+header{height:70px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #292929}
+.logo{font-size:20px;font-weight:900}
+.logo span{color:#e50914}
+.exit{background:transparent;border:1px solid #333;color:#fff;padding:10px 15px;border-radius:5px;cursor:pointer}
+main{max-width:900px;margin:40px auto;padding:0 18px}
+.tag{font-size:10px;letter-spacing:3px;color:#e50914;margin-bottom:12px}
+h1{font-size:30px;margin-bottom:10px}
+.sub{color:#888;font-size:14px;line-height:1.6}
+.profile{display:flex;align-items:center;gap:18px;background:#121212;border:1px solid #292929;border-radius:9px;padding:22px;margin-top:30px}
+.avatar{width:65px;height:65px;flex-shrink:0;border-radius:8px;background:#e50914;display:grid;place-items:center;font-size:27px;font-weight:bold}
+.name{font-size:21px;font-weight:bold;overflow-wrap:anywhere}
+.status{font-size:12px;color:#58d68d;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}
+.tile{background:#121212;border:1px solid #292929;border-radius:8px;padding:20px}
+.tile h2{font-size:15px;margin-bottom:9px}
+.tile p{font-size:12px;color:#888;line-height:1.5}
+.badge{display:inline-block;color:#e50914;font-size:10px;margin-top:12px;letter-spacing:1px}
+footer{text-align:center;color:#555;font-size:10px;padding:35px 15px}
+@media(max-width:500px){header{padding:0 16px}main{margin:30px auto}.grid{grid-template-columns:1fr}.profile{padding:16px}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">BLACK <span>RUSSIA</span></div>
+  <button class="exit" id="exit">Выйти</button>
+</header>
+
+<main>
+  <div class="tag">ЛИЧНЫЙ КАБИНЕТ</div>
+  <h1>Добро пожаловать!</h1>
+  <p class="sub">Управляйте своим аккаунтом в BLACK RUSSIA RP.</p>
+
+  <section class="profile">
+    <div class="avatar" id="avatar">И</div>
+    <div>
+      <div class="name" id="name">Игрок</div>
+      <div class="status">● Аккаунт активен</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="tile">
+      <h2>Мой профиль</h2>
+      <p>Информация о вашем игровом аккаунте.</p>
+      <span class="badge">ПРОФИЛЬ</span>
+    </article>
+    <article class="tile">
+      <h2>BLACK PASS</h2>
+      <p>Награды и задания появятся здесь позже.</p>
+      <span class="badge">СКОРО</span>
+    </article>
+    <article class="tile">
+      <h2>Гараж</h2>
+      <p>Ваши автомобили и коллекция машин.</p>
+      <span class="badge">СКОРО</span>
+    </article>
+    <article class="tile">
+      <h2>Автосалон</h2>
+      <p>Выбор автомобилей появится в следующих обновлениях.</p>
+      <span class="badge">СКОРО</span>
+    </article>
+  </section>
+</main>
+
+<footer>BLACK RUSSIA RP · ФАН-ПРОЕКТ · 2026</footer>
+
+<script>
+const user=sessionStorage.getItem("br_current_user");
+
+if(!user){
+  location.replace("../index.html");
+}else{
+  document.getElementById("name").textContent=user;
+  document.getElementById("avatar").textContent=user.charAt(0).toUpperCase();
+}
+
+document.getElementById("exit").onclick=()=>{
+  sessionStorage.removeItem("br_current_user");
+  location.replace("../index.html");
+};
+</script>
+</body>
+</html>
