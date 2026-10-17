@@ -1,123 +1,325 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BLACK RUSSIA — Аккаунт</title>
+<title>MKHost</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#080808;color:#fff;font-family:Arial,sans-serif;display:grid;place-items:center;padding:20px}
-.card{width:100%;max-width:380px;background:#111;padding:30px;border:1px solid #292929;border-radius:10px}
-.logo{font-size:23px;font-weight:900;letter-spacing:1px;margin-bottom:32px}
-.logo span{color:#e50914}
-.tag{color:#e50914;font-size:10px;letter-spacing:3px;margin-bottom:12px}
-h1{font-size:27px;margin-bottom:9px}
-.sub{font-size:13px;color:#888;margin-bottom:27px;line-height:1.5}
-label{display:block;font-size:12px;margin-bottom:8px}
-input{width:100%;padding:13px;background:#090909;border:1px solid #303030;border-radius:5px;color:#fff;outline:none;margin-bottom:18px}
-input:focus{border-color:#e50914}
+:root{--bg:#080808;--card:#141414;--line:#292929;--red:#e50914;--text:#fff;--muted:#888}
+body{background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
-.submit{width:100%;padding:14px;background:#e50914;color:white;border:0;border-radius:5px;font-weight:bold;letter-spacing:1px}
-.submit:hover{background:#bd0710}
-.switch{text-align:center;color:#888;font-size:12px;margin-top:23px}
-.link{background:none;border:0;color:#e50914;font-weight:bold;margin-left:5px}
-.msg{font-size:12px;color:#ff646b;margin-bottom:15px;line-height:1.5}
-footer{text-align:center;color:#555;font-size:10px;margin-top:25px;letter-spacing:1px}
-.hidden{display:none}
+input,textarea{width:100%;padding:12px;background:#090909;border:1px solid #303030;border-radius:6px;color:white;outline:none}
+input:focus,textarea:focus{border-color:var(--red)}
+.hidden{display:none!important}
+button.red{background:var(--red);color:white;border:0;border-radius:6px;padding:13px;font-weight:bold}
+button.red:hover{background:#bd0710}
+button.dark{background:#242424;color:white;border:1px solid #333;border-radius:6px;padding:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:17px;margin-bottom:14px}
+.muted{color:var(--muted);font-size:12px}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--red)}
+.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at top,#300608,#080808 65%)}
+.auth{width:100%;max-width:380px}
+.auth .logo{text-align:center;margin-bottom:30px}
+.tag{color:var(--red);font-size:10px;letter-spacing:3px;margin-bottom:12px}
+h1{font-size:27px;margin-bottom:9px}
+.sub{color:#888;font-size:13px;line-height:1.5;margin-bottom:25px}
+label{display:block;font-size:12px;margin-bottom:8px}
+form .field{margin-bottom:16px}
+.msg{color:#ff646b;font-size:12px;line-height:1.5;min-height:17px;margin-bottom:8px}
+.switch{text-align:center;color:#888;font-size:12px;margin-top:22px}
+.link{background:none;border:0;color:var(--red);font-weight:bold;margin-left:5px}
+.tabs{display:flex;gap:5px;background:#222;padding:4px;border-radius:7px;margin-bottom:22px}
+.tabs button{flex:1;background:none;color:#aaa;border:0;padding:10px;border-radius:5px}
+.tabs button.active{background:var(--red);color:white}
+header{position:sticky;top:0;z-index:5;background:#111;border-bottom:1px solid var(--line)}
+.top{max-width:1200px;margin:auto;min-height:60px;padding:10px 16px;display:flex;align-items:center;gap:18px}
+.search{max-width:350px;flex:1}
+.topright{display:flex;align-items:center;gap:10px;margin-left:auto}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-weight:bold;flex-shrink:0}
+.layout{max-width:1200px;margin:20px auto;display:grid;grid-template-columns:180px minmax(0,600px) 250px;gap:18px;padding:0 15px;align-items:start}
+nav{position:sticky;top:80px}
+.navbtn{display:flex;align-items:center;gap:12px;width:100%;padding:12px;background:none;color:#ccc;text-align:left;border:0;border-radius:6px;margin-bottom:3px}
+.navbtn span{color:var(--red);font-size:17px;width:20px}
+.navbtn.active,.navbtn:hover{background:#222;color:white}
+h2{font-size:20px;margin-bottom:14px}
+h3{font-size:15px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.posthead{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;margin:12px 0}
+.actions{display:flex;gap:7px;border-top:1px solid var(--line);padding-top:12px}
+.actions button{flex:1;background:#242424;border:0;color:#ccc;padding:9px;border-radius:6px}
+.actions button:hover{color:var(--red)}
+.cover{height:100px;border-radius:7px;background:linear-gradient(120deg,#360509,#e50914,#111);margin-bottom:-28px}
+.profilehead{padding:0 10px 10px}
+.bigavatar{width:70px;height:70px;border:4px solid var(--card);font-size:23px}
+.stats{display:flex;gap:25px;margin-top:15px}
+.stats strong{display:block;font-size:18px}
+.serveraddr{background:#222;padding:12px;border-radius:6px;overflow-wrap:anywhere;margin:12px 0}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#777;margin-right:7px}
+.dot.on{background:#27c46b}
+.full{width:100%}
+.empty{text-align:center;padding:25px;color:#888}
+footer{text-align:center;color:#555;padding:20px;font-size:11px}
+@media(max-width:900px){.layout{grid-template-columns:155px minmax(0,1fr)}.rightbar{display:none}}
+@media(max-width:580px){.top{flex-wrap:wrap;gap:10px}.logo{font-size:21px}.search{order:3;flex-basis:100%;max-width:none}.layout{display:block;margin:12px auto;padding:0 10px}nav{position:static;display:flex;overflow-x:auto;gap:3px;margin-bottom:12px}.navbtn{width:auto;white-space:nowrap;padding:10px}.navbtn .label{display:none}.navbtn span{width:auto}.card{padding:13px}}
 </style>
 </head>
 <body>
-<div>
-<section class="card">
-  <div class="logo">BLACK <span>RUSSIA</span></div>
-  <div class="tag">АККАУНТ ИГРОКА</div>
-  <h1 id="title">С возвращением!</h1>
-  <p class="sub" id="subtitle">Войдите, чтобы открыть свой аккаунт.</p>
-  <div class="msg" id="msg"></div>
 
-  <form id="form">
-    <label for="username">Имя пользователя</label>
-    <input id="username" placeholder="Введите имя пользователя"
-      minlength="3" maxlength="20" required autocomplete="username">
-
-    <label for="password">Пароль</label>
-    <input id="password" type="password" placeholder="Введите пароль"
-      minlength="6" required autocomplete="current-password">
-
-    <div id="confirmBox" class="hidden">
-      <label for="confirm">Повторите пароль</label>
-      <input id="confirm" type="password" placeholder="Введите пароль ещё раз"
-        minlength="6">
+<section id="authScreen" class="auth-wrap">
+ <div class="auth">
+  <div class="logo">MK<span>Host</span></div>
+  <div class="card">
+   <div class="tag">ИГРОВОЕ СООБЩЕСТВО</div>
+   <h1 id="authTitle">С возвращением!</h1>
+   <p class="sub" id="authSub">Войдите, чтобы открыть свой аккаунт.</p>
+   <div class="tabs">
+    <button id="loginTab" class="active" type="button" onclick="setMode(false)">Вход</button>
+    <button id="registerTab" type="button" onclick="setMode(true)">Регистрация</button>
+   </div>
+   <form id="authForm">
+    <div class="field">
+     <label for="username">Имя пользователя</label>
+     <input id="username" minlength="3" maxlength="20" placeholder="Введите логин" autocomplete="username" required>
     </div>
-
-    <button class="submit" id="submit" type="submit">ВОЙТИ</button>
-  </form>
-
-  <div class="switch">
-    <span id="switchText">Нет аккаунта?</span>
-    <button class="link" id="switch" type="button">Регистрация</button>
+    <div class="field">
+     <label for="password">Пароль</label>
+     <input id="password" type="password" minlength="6" placeholder="Введите пароль" autocomplete="current-password" required>
+    </div>
+    <div id="confirmBox" class="field hidden">
+     <label for="confirm">Повторите пароль</label>
+     <input id="confirm" type="password" minlength="6" placeholder="Повторите пароль">
+    </div>
+    <div id="msg" class="msg"></div>
+    <button class="red full" id="submitBtn" type="submit">ВОЙТИ</button>
+   </form>
+   <p class="muted" style="text-align:center;margin-top:18px">Регистрация без электронной почты</p>
   </div>
+  <footer>MKHOST · ИГРОВОЕ СООБЩЕСТВО</footer>
+ </div>
 </section>
-<footer>BLACK RUSSIA RP · ФАН-ПРОЕКТ</footer>
+
+<div id="app" class="hidden">
+ <header>
+  <div class="top">
+   <div class="logo">MK<span>Host</span></div>
+   <div class="search"><input id="search" placeholder="Поиск по MKHost" oninput="searchPosts(this.value)"></div>
+   <div class="topright">
+    <button class="dark" onclick="go('messages')">✉</button>
+    <div class="row" onclick="go('profile')" style="cursor:pointer">
+     <div class="avatar" id="topAvatar">A</div>
+     <b id="topName">Admin</b>
+    </div>
+   </div>
+  </div>
+ </header>
+
+ <div class="layout">
+  <nav>
+   <button class="navbtn" data-page="profile" onclick="go('profile')"><span>♙</span><b class="label">Моя страница</b></button>
+   <button class="navbtn active" data-page="news" onclick="go('news')"><span>▤</span><b class="label">Новости</b></button>
+   <button class="navbtn" data-page="messages" onclick="go('messages')"><span>✉</span><b class="label">Мессенджер</b></button>
+   <button class="navbtn" data-page="friends" onclick="go('friends')"><span>♧</span><b class="label">Друзья</b></button>
+   <button class="navbtn" data-page="groups" onclick="go('groups')"><span>♟</span><b class="label">Сообщества</b></button>
+   <button class="navbtn" data-page="photos" onclick="go('photos')"><span>▧</span><b class="label">Фотографии</b></button>
+   <button class="navbtn" data-page="settings" onclick="go('settings')"><span>⚙</span><b class="label">Настройки</b></button>
+   <button class="navbtn" onclick="logout()"><span>↪</span><b class="label">Выйти</b></button>
+  </nav>
+  <main id="main"></main>
+  <aside class="rightbar">
+   <div class="card">
+    <h3>Сервер Minecraft</h3>
+    <div class="serveraddr">Kartaviy.aternos.me</div>
+    <p id="serverStatus" class="muted"><span class="dot"></span>Проверяем статус...</p>
+    <p id="serverPlayers" class="muted" style="margin-top:8px"></p>
+    <button class="red full" style="margin-top:12px" onclick="copyAddress()">Копировать адрес</button>
+   </div>
+   <div class="card">
+    <h3>Сообщество MKHost</h3>
+    <p class="muted" style="margin:12px 0">Общение, публикации и новости игрового сервера.</p>
+    <button class="dark full" onclick="go('groups')">Открыть сообщество</button>
+   </div>
+   <div class="card">
+    <h3>Быстрый переход</h3>
+    <button class="navbtn" onclick="go('news')">▤ Новости</button>
+    <button class="navbtn" onclick="go('friends')">♧ Друзья</button>
+    <button class="navbtn" onclick="go('messages')">✉ Сообщения</button>
+   </div>
+  </aside>
+ </div>
+ <footer>MKHost · Демоверсия сообщества</footer>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-let register=false;
+const ADMIN='Admin',ADMIN_PASS='288277';
+let register=false,currentUser='',users=[{name:'Admin',password:'288277'}];
+let posts=[],likes=new Set(),chats={},activeChat='Admin',page='news';
 
-$("switch").onclick=()=>{
-  register=!register;
-  $("title").textContent=register?"Создать аккаунт":"С возвращением!";
-  $("subtitle").textContent=register
-    ?"Зарегистрируйтесь, чтобы начать."
-    :"Войдите, чтобы открыть свой аккаунт.";
-  $("submit").textContent=register?"ЗАРЕГИСТРИРОВАТЬСЯ":"ВОЙТИ";
-  $("switchText").textContent=register?"Уже есть аккаунт?":"Нет аккаунта?";
-  $("switch").textContent=register?"Войти":"Регистрация";
-  $("confirmBox").classList.toggle("hidden",!register);
-  $("confirm").required=register;
-  $("password").autocomplete=register?"new-password":"current-password";
-  $("msg").textContent="";
-};
+function setMode(value){
+ register=value;
+ $('loginTab').classList.toggle('active',!value);
+ $('registerTab').classList.toggle('active',value);
+ $('authTitle').textContent=value?'Создать аккаунт':'С возвращением!';
+ $('authSub').textContent=value?'Зарегистрируйтесь, чтобы начать.':'Войдите, чтобы открыть свой аккаунт.';
+ $('submitBtn').textContent=value?'ЗАРЕГИСТРИРОВАТЬСЯ':'ВОЙТИ';
+ $('confirmBox').classList.toggle('hidden',!value);
+ $('confirm').required=value;
+ $('msg').textContent='';
+}
 
-$("form").onsubmit=e=>{
-  e.preventDefault();
-  const name=$("username").value.trim();
-  const pass=$("password").value;
-  const key=name.toLowerCase();
-  let users={};
+$('authForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=$('username').value.trim();
+ const pass=$('password').value;
+ const key=name.toLowerCase();
+ const msg=$('msg');
 
-  try{
-    users=JSON.parse(localStorage.getItem("br_users")||"{}");
-  }catch{}
+ if(register){
+  if(pass!==$('confirm').value){msg.textContent='Пароли не совпадают.';return}
+  if(key==='admin'){msg.textContent='Имя Admin зарезервировано.';return}
+  if(users.some(u=>u.name.toLowerCase()===key)){msg.textContent='Такой логин уже существует в этом сеансе.';return}
+  users.push({name,password:pass});
+  enter(name);
+  return;
+ }
 
-  if(register){
-    if(pass!==$("confirm").value){
-      $("msg").textContent="Пароли не совпадают.";
-      return;
-    }
-    if(users[key]){
-      $("msg").textContent="Это имя пользователя уже занято.";
-      return;
-    }
-    users[key]={username:name,password:pass};
-    try{
-      localStorage.setItem("br_users",JSON.stringify(users));
-    }catch{
-      $("msg").textContent="Не удалось сохранить аккаунт в браузере.";
-      return;
-    }
+ const user=users.find(u=>u.name.toLowerCase()===key&&u.password===pass);
+ if(!user){msg.textContent='Неверный логин или пароль.';return}
+ enter(user.name);
+});
+
+function enter(name){
+ currentUser=name;
+ $('authScreen').classList.add('hidden');
+ $('app').classList.remove('hidden');
+ $('topName').textContent=name;
+ $('topAvatar').textContent=name.charAt(0).toUpperCase();
+ go('news');
+ checkServer();
+}
+
+function logout(){
+ currentUser='';
+ $('app').classList.add('hidden');
+ $('authScreen').classList.remove('hidden');
+ $('username').value='';
+ $('password').value='';
+ $('msg').textContent='';
+ setMode(false);
+}
+
+function go(p){
+ page=p;
+ document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
+ const main=$('main');
+ if(p==='news')main.innerHTML=newsPage();
+ else if(p==='profile')main.innerHTML=profilePage();
+ else if(p==='messages')main.innerHTML=messagesPage();
+ else if(p==='friends')main.innerHTML=friendsPage();
+ else if(p==='groups')main.innerHTML=groupsPage();
+ else if(p==='photos')main.innerHTML='<h2>Фотографии</h2><div class="card empty">Фотографий пока нет.</div>';
+ else if(p==='settings')main.innerHTML=settingsPage();
+}
+
+function composer(){
+ return `<div class="card"><div class="row"><div class="avatar">${esc(currentUser[0])}</div><textarea id="postText" rows="2" placeholder="Что у вас нового?"></textarea></div><div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="red" onclick="publishPost()">Опубликовать</button></div></div>`;
+}
+function postCard(p){
+ const liked=likes.has(p.id);
+ return `<div class="card post" data-post="${esc(p.text.toLowerCase())}">
+ <div class="posthead"><div class="avatar">${esc(p.user[0])}</div><div><b>${esc(p.user)}</b><div class="muted">${esc(p.time)}</div></div>${p.user==='Admin'?'<span class="muted" style="margin-left:auto">Администратор</span>':''}</div>
+ <div class="postbody">${esc(p.text)}</div>
+ <div class="actions"><button onclick="toggleLike(${p.id})">${liked?'♥':'♡'} ${p.likes+(liked?1:0)}</button><button onclick="commentPost(${p.id})">▢ Комментировать</button><button onclick="sharePost(${p.id})">↗ Репост</button></div>
+ ${p.comments.map(c=>`<p style="margin-top:10px"><b>${esc(c.user)}:</b> ${esc(c.text)}</p>`).join('')}</div>`;
+}
+function newsPage(){
+ return `<h2>Новости</h2>${composer()}<div id="feed">${posts.length?posts.map(postCard).join(''):'<div class="card empty">Пока нет публикаций. Создай первую запись!</div>'}</div>`;
+}
+function profilePage(){
+ const own=posts.filter(p=>p.user===currentUser);
+ return `<div class="card"><div class="cover"></div><div class="profilehead"><div class="row"><div class="avatar bigavatar">${esc(currentUser[0])}</div><div><h2 style="margin:0">${esc(currentUser)}</h2><p class="muted">${currentUser==='Admin'?'Администратор MKHost':'Участник MKHost'}</p></div></div><div class="stats"><div><strong>0</strong><span class="muted">Друзья</span></div><div><strong>${own.length}</strong><span class="muted">Записи</span></div></div></div></div><h2>Мои записи</h2>${composer()}${own.length?own.map(postCard).join(''):'<div class="card empty">У тебя пока нет записей.</div>'}`;
+}
+function publishPost(){
+ const el=$('postText');
+ if(!el||!el.value.trim())return;
+ posts.unshift({id:Date.now(),user:currentUser,text:el.value.trim(),time:'только что',likes:0,comments:[]});
+ go(page);
+}
+function toggleLike(id){if(likes.has(id))likes.delete(id);else likes.add(id);go(page)}
+function commentPost(id){
+ const text=prompt('Комментарий:');
+ if(!text||!text.trim())return;
+ const p=posts.find(p=>p.id===id);
+ if(p){p.comments.push({user:currentUser,text:text.trim()});go(page)}
+}
+function sharePost(id){
+ const p=posts.find(p=>p.id===id);
+ if(p){posts.unshift({...p,id:Date.now(),user:currentUser,text:'Репост: '+p.text,comments:[]});go('news')}
+}
+function friendsPage(){
+ return `<h2>Друзья</h2><div class="card"><input id="friendSearch" placeholder="Поиск пользователей" oninput="renderUsers(this.value)"><div id="usersList" style="margin-top:12px"></div></div>`;
+}
+function renderUsers(q=''){
+ const el=$('usersList');if(!el)return;
+ const list=users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase()));
+ el.innerHTML=list.map(u=>`<div class="row" style="padding:10px 0"><div class="avatar">${esc(u.name[0])}</div><div style="flex:1"><b>${esc(u.name)}</b><p class="muted">${u.name==='Admin'?'Администратор':'Участник'}</p></div><button class="dark" onclick="openChat('${esc(u.name)}')">Написать</button></div>`).join('')||'<p class="muted">Пользователи не найдены.</p>';
+}
+function groupsPage(){
+ return `<h2>Сообщества</h2><div class="card"><div class="row"><div class="avatar">M</div><div><h3>MKHost Minecraft</h3><p class="muted">Игровое сообщество</p></div></div><p style="margin:15px 0">Общение, новости и события сервера Kartaviy.</p><button class="red" onclick="go('news')">Открыть новости</button></div>`;
+}
+function settingsPage(){
+ return `<h2>Настройки</h2><div class="card"><h3>Текущий аккаунт</h3><p style="margin:12px 0">${esc(currentUser)}</p><p class="muted" style="margin-bottom:15px">Данные демонстрационной версии хранятся только до перезагрузки страницы.</p><button class="red" onclick="logout()">Выйти из аккаунта</button></div>${currentUser==='Admin'?'<div class="card"><h3>Администратор</h3><p class="muted" style="margin-top:10px">Вы вошли в демонстрационный аккаунт Admin.</p></div>':''}`;
+}
+function messagesPage(){
+ const otherUsers=users.filter(u=>u.name!==currentUser);
+ return `<h2>Мессенджер</h2><div class="card"><h3 style="margin-bottom:12px">Выбери пользователя</h3>${otherUsers.map(u=>`<button class="dark" style="margin:0 6px 6px 0" onclick="openChat('${esc(u.name)}')">${esc(u.name)}</button>`).join('')||'<p class="muted">Других пользователей пока нет.</p>'}<hr style="border-color:#292929;margin:14px 0"><h3 style="margin-bottom:12px">Диалог: ${esc(activeChat)}</h3><div id="chatMessages" style="min-height:80px;max-height:230px;overflow:auto;margin-bottom:12px"></div><div class="row"><input id="chatInput" placeholder="Сообщение..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="red" onclick="sendMessage()">➤</button></div><p class="muted" style="margin-top:12px">Демонстрационная переписка в текущем сеансе.</p></div>`;
+}
+function openChat(name){activeChat=name;go('messages')}
+function sendMessage(){
+ const el=$('chatInput');if(!el||!el.value.trim())return;
+ if(!chats[activeChat])chats[activeChat]=[];
+ chats[activeChat].push({from:currentUser,text:el.value.trim()});
+ el.value='';
+ renderMessages();
+}
+function renderMessages(){
+ const el=$('chatMessages');if(!el)return;
+ el.innerHTML=(chats[activeChat]||[]).map(m=>`<div style="background:#222;padding:10px;border-radius:7px;margin-bottom:7px"><b>${esc(m.from)}</b><p style="margin-top:5px">${esc(m.text)}</p></div>`).join('')||'<p class="muted">Сообщений пока нет.</p>';
+}
+function searchPosts(q){
+ if(page!=='news')go('news');
+ document.querySelectorAll('[data-post]').forEach(el=>el.classList.toggle('hidden',!el.dataset.post.includes(q.toLowerCase())));
+}
+function esc(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function copyAddress(){
+ if(navigator.clipboard&&window.isSecureContext){
+  navigator.clipboard.writeText('Kartaviy.aternos.me').then(()=>alert('Адрес скопирован')).catch(()=>alert('Адрес сервера: Kartaviy.aternos.me'));
+ }else alert('Адрес сервера: Kartaviy.aternos.me');
+}
+async function checkServer(){
+ try{
+  const r=await fetch('https://api.mcsrvstat.us/3/Kartaviy.aternos.me');
+  if(!r.ok)throw Error();
+  const d=await r.json();
+  if(d.online){
+   $('serverStatus').innerHTML='<span class="dot on"></span>Сервер онлайн';
+   $('serverPlayers').textContent='Игроки: '+(d.players?.online??0)+' / '+(d.players?.max??'?');
   }else{
-    if(!users[key]||users[key].password!==pass){
-      $("msg").textContent="Неверное имя пользователя или пароль.";
-      return;
-    }
+   $('serverStatus').innerHTML='<span class="dot"></span>Сервер офлайн';
+   $('serverPlayers').textContent='Возможно, сервер Aternos не запущен.';
   }
-
-  sessionStorage.setItem("br_current_user",name);
-  location.href="account/account.html";
-};
+ }catch(e){
+  $('serverStatus').innerHTML='<span class="dot"></span>Статус недоступен';
+  $('serverPlayers').textContent='Не удалось проверить статус.';
+ }
+}
 </script>
 </body>
 </html>
