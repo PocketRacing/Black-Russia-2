@@ -2,324 +2,612 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MKHost</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#080808">
+<title>BLACK RUSSIA RP</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#080808;--card:#141414;--line:#292929;--red:#e50914;--text:#fff;--muted:#888}
-body{background:var(--bg);color:var(--text);font:14px Arial,sans-serif}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-input,textarea{width:100%;padding:12px;background:#090909;border:1px solid #303030;border-radius:6px;color:white;outline:none}
-input:focus,textarea:focus{border-color:var(--red)}
+:root{
+--bg:#080808;
+--panel:#141414;
+--line:#292929;
+--red:#e50914;
+--muted:#888;
+--green:#31d47a;
+}
+body{
+background:var(--bg);
+color:#fff;
+font:14px Arial,sans-serif;
+min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
 .hidden{display:none!important}
-button.red{background:var(--red);color:white;border:0;border-radius:6px;padding:13px;font-weight:bold}
-button.red:hover{background:#bd0710}
-button.dark{background:#242424;color:white;border:1px solid #333;border-radius:6px;padding:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:17px;margin-bottom:14px}
-.muted{color:var(--muted);font-size:12px}
-.logo{font-size:25px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--red)}
-.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at top,#300608,#080808 65%)}
-.auth{width:100%;max-width:380px}
-.auth .logo{text-align:center;margin-bottom:30px}
-.tag{color:var(--red);font-size:10px;letter-spacing:3px;margin-bottom:12px}
-h1{font-size:27px;margin-bottom:9px}
-.sub{color:#888;font-size:13px;line-height:1.5;margin-bottom:25px}
-label{display:block;font-size:12px;margin-bottom:8px}
-form .field{margin-bottom:16px}
-.msg{color:#ff646b;font-size:12px;line-height:1.5;min-height:17px;margin-bottom:8px}
-.switch{text-align:center;color:#888;font-size:12px;margin-top:22px}
-.link{background:none;border:0;color:var(--red);font-weight:bold;margin-left:5px}
-.tabs{display:flex;gap:5px;background:#222;padding:4px;border-radius:7px;margin-bottom:22px}
-.tabs button{flex:1;background:none;color:#aaa;border:0;padding:10px;border-radius:5px}
-.tabs button.active{background:var(--red);color:white}
-header{position:sticky;top:0;z-index:5;background:#111;border-bottom:1px solid var(--line)}
-.top{max-width:1200px;margin:auto;min-height:60px;padding:10px 16px;display:flex;align-items:center;gap:18px}
-.search{max-width:350px;flex:1}
-.topright{display:flex;align-items:center;gap:10px;margin-left:auto}
-.avatar{width:38px;height:38px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-weight:bold;flex-shrink:0}
-.layout{max-width:1200px;margin:20px auto;display:grid;grid-template-columns:180px minmax(0,600px) 250px;gap:18px;padding:0 15px;align-items:start}
-nav{position:sticky;top:80px}
-.navbtn{display:flex;align-items:center;gap:12px;width:100%;padding:12px;background:none;color:#ccc;text-align:left;border:0;border-radius:6px;margin-bottom:3px}
-.navbtn span{color:var(--red);font-size:17px;width:20px}
-.navbtn.active,.navbtn:hover{background:#222;color:white}
-h2{font-size:20px;margin-bottom:14px}
-h3{font-size:15px}
-.row{display:flex;align-items:center;gap:10px}
-.between{justify-content:space-between}
-.posthead{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;margin:12px 0}
-.actions{display:flex;gap:7px;border-top:1px solid var(--line);padding-top:12px}
-.actions button{flex:1;background:#242424;border:0;color:#ccc;padding:9px;border-radius:6px}
-.actions button:hover{color:var(--red)}
-.cover{height:100px;border-radius:7px;background:linear-gradient(120deg,#360509,#e50914,#111);margin-bottom:-28px}
-.profilehead{padding:0 10px 10px}
-.bigavatar{width:70px;height:70px;border:4px solid var(--card);font-size:23px}
-.stats{display:flex;gap:25px;margin-top:15px}
-.stats strong{display:block;font-size:18px}
-.serveraddr{background:#222;padding:12px;border-radius:6px;overflow-wrap:anywhere;margin:12px 0}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#777;margin-right:7px}
-.dot.on{background:#27c46b}
-.full{width:100%}
-.empty{text-align:center;padding:25px;color:#888}
-footer{text-align:center;color:#555;padding:20px;font-size:11px}
-@media(max-width:900px){.layout{grid-template-columns:155px minmax(0,1fr)}.rightbar{display:none}}
-@media(max-width:580px){.top{flex-wrap:wrap;gap:10px}.logo{font-size:21px}.search{order:3;flex-basis:100%;max-width:none}.layout{display:block;margin:12px auto;padding:0 10px}nav{position:static;display:flex;overflow-x:auto;gap:3px;margin-bottom:12px}.navbtn{width:auto;white-space:nowrap;padding:10px}.navbtn .label{display:none}.navbtn span{width:auto}.card{padding:13px}}
+#authScreen{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:16px;
+background:radial-gradient(circle at top,#401014,#080808 65%);
+}
+.auth-box{
+width:100%;
+max-width:390px;
+padding:25px;
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:17px;
+}
+.logo{
+text-align:center;
+font-size:29px;
+font-weight:900;
+margin-bottom:6px;
+}
+.logo span,header strong span{color:var(--red)}
+.sub{
+text-align:center;
+color:var(--muted);
+font-size:10px;
+letter-spacing:3px;
+margin-bottom:24px;
+}
+.tabs{display:flex;gap:7px;margin-bottom:20px}
+.tabs button{
+flex:1;padding:12px;
+background:#242424;
+color:#aaa;
+border-radius:8px;
+}
+.tabs button.active,.primary{background:var(--red);color:white}
+h2{font-size:21px;margin-bottom:8px}
+.desc{color:var(--muted);font-size:12px;line-height:1.5;margin-bottom:18px}
+.field{margin-bottom:13px}
+.field label{
+display:block;
+font-size:10px;
+color:#aaa;
+margin-bottom:7px;
+}
+.field input{
+width:100%;
+padding:14px;
+background:#090909;
+border:1px solid #333;
+border-radius:8px;
+color:white;
+outline:none;
+}
+.field input:focus{border-color:var(--red)}
+.primary,.secondary{
+width:100%;
+padding:14px;
+border-radius:8px;
+font-weight:bold;
+}
+.secondary{background:#242424;color:white;margin-top:9px}
+.msg{min-height:20px;margin-top:12px;text-align:center;font-size:12px}
+header{
+position:sticky;
+top:0;
+z-index:5;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+padding:16px;
+background:#0b0b0bf5;
+border-bottom:1px solid var(--line);
+}
+header strong{font-size:17px}
+.money{font-size:11px;color:var(--green)}
+main{
+max-width:900px;
+margin:auto;
+padding:17px 14px 100px;
+}
+.hero,.card,.stat{
+padding:17px;
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:12px;
+}
+.hero{
+background:linear-gradient(120deg,#401014,#141414 75%);
+margin-bottom:13px;
+}
+.hero h2{font-size:26px}
+.muted{color:var(--muted);font-size:12px;line-height:1.5}
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+margin:12px 0;
+}
+.stat small{
+display:block;
+color:var(--muted);
+font-size:10px;
+margin-bottom:8px;
+}
+.stat b{font-size:18px}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px;
+margin:13px 0;
+}
+.action{
+display:flex;
+align-items:center;
+justify-content:center;
+width:100%;
+min-height:53px;
+padding:12px 8px;
+background:#202020;
+border:1px solid #333;
+border-radius:9px;
+color:white;
+text-decoration:none;
+text-align:center;
+font-size:12px;
+font-weight:bold;
+}
+.action:hover{border-color:var(--red)}
+.action.red{background:var(--red);border-color:var(--red)}
+.section-title{font-size:19px;margin:23px 0 10px}
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+z-index:10;
+display:flex;
+justify-content:space-around;
+background:#090909f5;
+border-top:1px solid var(--line);
+padding:9px 2px calc(9px + env(safe-area-inset-bottom));
+}
+.bottom-nav a{
+flex:1;
+color:#888;
+text-decoration:none;
+text-align:center;
+font-size:10px;
+padding:4px 1px;
+}
+.bottom-nav a span{display:block;font-size:20px;margin-bottom:4px}
+.bottom-nav a.active,.bottom-nav a:hover{color:var(--red)}
+.toast{
+position:fixed;
+bottom:85px;
+left:50%;
+transform:translateX(-50%);
+padding:12px 16px;
+background:#222;
+border:1px solid #444;
+border-radius:9px;
+display:none;
+z-index:20;
+max-width:90%;
+text-align:center;
+}
+@media(min-width:650px){
+.stats{grid-template-columns:repeat(4,1fr)}
+.grid{grid-template-columns:repeat(3,1fr)}
+main{padding-top:25px}
+}
 </style>
 </head>
 <body>
 
-<section id="authScreen" class="auth-wrap">
- <div class="auth">
-  <div class="logo">MK<span>Host</span></div>
-  <div class="card">
-   <div class="tag">ИГРОВОЕ СООБЩЕСТВО</div>
-   <h1 id="authTitle">С возвращением!</h1>
-   <p class="sub" id="authSub">Войдите, чтобы открыть свой аккаунт.</p>
-   <div class="tabs">
-    <button id="loginTab" class="active" type="button" onclick="setMode(false)">Вход</button>
-    <button id="registerTab" type="button" onclick="setMode(true)">Регистрация</button>
-   </div>
-   <form id="authForm">
-    <div class="field">
-     <label for="username">Имя пользователя</label>
-     <input id="username" minlength="3" maxlength="20" placeholder="Введите логин" autocomplete="username" required>
-    </div>
-    <div class="field">
-     <label for="password">Пароль</label>
-     <input id="password" type="password" minlength="6" placeholder="Введите пароль" autocomplete="current-password" required>
-    </div>
-    <div id="confirmBox" class="field hidden">
-     <label for="confirm">Повторите пароль</label>
-     <input id="confirm" type="password" minlength="6" placeholder="Повторите пароль">
-    </div>
-    <div id="msg" class="msg"></div>
-    <button class="red full" id="submitBtn" type="submit">ВОЙТИ</button>
-   </form>
-   <p class="muted" style="text-align:center;margin-top:18px">Регистрация без электронной почты</p>
-  </div>
-  <footer>MKHOST · ИГРОВОЕ СООБЩЕСТВО</footer>
- </div>
-</section>
+<section id="authScreen">
+<div class="auth-box">
+<div class="logo">BLACK <span>RUSSIA</span></div>
+<div class="sub">ROLE PLAY • ONLINE WORLD</div>
 
-<div id="app" class="hidden">
- <header>
-  <div class="top">
-   <div class="logo">MK<span>Host</span></div>
-   <div class="search"><input id="search" placeholder="Поиск по MKHost" oninput="searchPosts(this.value)"></div>
-   <div class="topright">
-    <button class="dark" onclick="go('messages')">✉</button>
-    <div class="row" onclick="go('profile')" style="cursor:pointer">
-     <div class="avatar" id="topAvatar">A</div>
-     <b id="topName">Admin</b>
-    </div>
-   </div>
-  </div>
- </header>
-
- <div class="layout">
-  <nav>
-   <button class="navbtn" data-page="profile" onclick="go('profile')"><span>♙</span><b class="label">Моя страница</b></button>
-   <button class="navbtn active" data-page="news" onclick="go('news')"><span>▤</span><b class="label">Новости</b></button>
-   <button class="navbtn" data-page="messages" onclick="go('messages')"><span>✉</span><b class="label">Мессенджер</b></button>
-   <button class="navbtn" data-page="friends" onclick="go('friends')"><span>♧</span><b class="label">Друзья</b></button>
-   <button class="navbtn" data-page="groups" onclick="go('groups')"><span>♟</span><b class="label">Сообщества</b></button>
-   <button class="navbtn" data-page="photos" onclick="go('photos')"><span>▧</span><b class="label">Фотографии</b></button>
-   <button class="navbtn" data-page="settings" onclick="go('settings')"><span>⚙</span><b class="label">Настройки</b></button>
-   <button class="navbtn" onclick="logout()"><span>↪</span><b class="label">Выйти</b></button>
-  </nav>
-  <main id="main"></main>
-  <aside class="rightbar">
-   <div class="card">
-    <h3>Сервер Minecraft</h3>
-    <div class="serveraddr">Kartaviy.aternos.me</div>
-    <p id="serverStatus" class="muted"><span class="dot"></span>Проверяем статус...</p>
-    <p id="serverPlayers" class="muted" style="margin-top:8px"></p>
-    <button class="red full" style="margin-top:12px" onclick="copyAddress()">Копировать адрес</button>
-   </div>
-   <div class="card">
-    <h3>Сообщество MKHost</h3>
-    <p class="muted" style="margin:12px 0">Общение, публикации и новости игрового сервера.</p>
-    <button class="dark full" onclick="go('groups')">Открыть сообщество</button>
-   </div>
-   <div class="card">
-    <h3>Быстрый переход</h3>
-    <button class="navbtn" onclick="go('news')">▤ Новости</button>
-    <button class="navbtn" onclick="go('friends')">♧ Друзья</button>
-    <button class="navbtn" onclick="go('messages')">✉ Сообщения</button>
-   </div>
-  </aside>
- </div>
- <footer>MKHost · Демоверсия сообщества</footer>
+<div class="tabs">
+<button id="loginTab" class="active" onclick="switchAuth('login')">Вход</button>
+<button id="registerTab" onclick="switchAuth('register')">Регистрация</button>
 </div>
 
-<script>
-const $=id=>document.getElementById(id);
-const ADMIN='Admin',ADMIN_PASS='288277';
-let register=false,currentUser='',users=[{name:'Admin',password:'288277'}];
-let posts=[],likes=new Set(),chats={},activeChat='Admin',page='news';
+<div id="loginForm">
+<h2>С возвращением</h2>
+<p class="desc">Введи данные своего игрового аккаунта.</p>
+<div class="field">
+<label>ИГРОВОЙ ЛОГИН</label>
+<input id="loginUsername" autocomplete="username" placeholder="Tomas_RP">
+</div>
+<div class="field">
+<label>ПАРОЛЬ</label>
+<input id="loginPassword" type="password" autocomplete="current-password" placeholder="Пароль">
+</div>
+<button class="primary" onclick="loginAccount()">ВОЙТИ В ИГРУ</button>
+<div class="msg" id="loginMessage"></div>
+</div>
 
-function setMode(value){
- register=value;
- $('loginTab').classList.toggle('active',!value);
- $('registerTab').classList.toggle('active',value);
- $('authTitle').textContent=value?'Создать аккаунт':'С возвращением!';
- $('authSub').textContent=value?'Зарегистрируйтесь, чтобы начать.':'Войдите, чтобы открыть свой аккаунт.';
- $('submitBtn').textContent=value?'ЗАРЕГИСТРИРОВАТЬСЯ':'ВОЙТИ';
- $('confirmBox').classList.toggle('hidden',!value);
- $('confirm').required=value;
- $('msg').textContent='';
+<div id="registerForm" class="hidden">
+<h2>Новый аккаунт</h2>
+<p class="desc">Создай своего игрового персонажа.</p>
+<div class="field">
+<label>ИГРОВОЙ ЛОГИН</label>
+<input id="regUsername" autocomplete="username" placeholder="Tomas_RP">
+</div>
+<div class="field">
+<label>ПОЧТА</label>
+<input id="regEmail" type="email" autocomplete="email" placeholder="example@mail.com">
+</div>
+<div class="field">
+<label>ПАРОЛЬ</label>
+<input id="regPassword" type="password" autocomplete="new-password" placeholder="Минимум 6 символов">
+</div>
+<div class="field">
+<label>ПОВТОРИ ПАРОЛЬ</label>
+<input id="regPassword2" type="password" autocomplete="new-password" placeholder="Повтори пароль">
+</div>
+<button class="primary" onclick="registerAccount()">СОЗДАТЬ АККАУНТ</button>
+<div class="msg" id="registerMessage"></div>
+</div>
+</div>
+</section>
+
+<section id="app" class="hidden">
+<header>
+<strong>BLACK <span>RUSSIA</span></strong>
+<div>
+<div class="money" id="topCash">₽ 0</div>
+<div class="money" id="topDonate">♦ 0</div>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<p class="muted">ДОБРО ПОЖАЛОВАТЬ В BLACK RUSSIA</p>
+<h2 id="homeName">Player</h2>
+<p class="muted">Твоя история начинается здесь.</p>
+</section>
+
+<div class="stats">
+<div class="stat"><small>УРОВЕНЬ</small><b id="homeLevel">1</b></div>
+<div class="stat"><small>ОПЫТ</small><b id="homeXP">0 XP</b></div>
+<div class="stat"><small>НАЛИЧНЫЕ</small><b id="homeCash">₽ 0</b></div>
+<div class="stat"><small>БАНК</small><b id="homeBank">₽ 0</b></div>
+</div>
+
+<h2 class="section-title">Игровой мир</h2>
+<div class="grid">
+<a class="action" href="jobs.html">💼 РАБОТЫ</a>
+<a class="action" href="garage.html">🚗 ГАРАЖ</a>
+<a class="action" href="cars.html">🚘 АВТОСАЛОН</a>
+<a class="action" href="shop.html">🏪 МАГАЗИН</a>
+<a class="action" href="map.html">🗺️ КАРТА</a>
+<a class="action" href="case.html">🎁 КЕЙСЫ</a>
+<a class="action" href="casino.html">🎰 КАЗИНО</a>
+<a class="action" href="bank.html">🏦 БАНК</a>
+<a class="action" href="chat.html">💬 ОБЩИЙ ЧАТ</a>
+<a class="action" href="online.html">🟢 ИГРОКИ ОНЛАЙН</a>
+<a class="action red" href="pass.html">🏆 BLACK PASS</a>
+<a class="action" href="donate.html">♦ ДОНАТ</a>
+</div>
+
+<div class="hero" onclick="location.href='pass.html'" style="cursor:pointer">
+<p style="color:#e50914;letter-spacing:3px;font-size:10px">SEASON 01</p>
+<h2>BLACK PASS</h2>
+<p class="muted">Открывай уровни, получай машины и награды.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-bottom:10px">Персонаж</h3>
+<p class="muted" id="profileId">ID аккаунта</p>
+<p style="margin-top:8px">Работа: <b id="profileJob">Безработный</b></p>
+<button class="secondary" onclick="location.href='profile.html'">МОЙ ПРОФИЛЬ</button>
+<button class="secondary" onclick="logout()">ВЫЙТИ ИЗ АККАУНТА</button>
+</div>
+</main>
+
+<nav class="bottom-nav">
+<a href="index.html" class="active"><span>🏠</span>Главная</a>
+<a href="jobs.html"><span>💼</span>Работа</a>
+<a href="garage.html"><span>🚗</span>Гараж</a>
+<a href="pass.html"><span>🏆</span>Pass</a>
+<a href="chat.html"><span>💬</span>Чат</a>
+<a href="profile.html"><span>👤</span>Профиль</a>
+</nav>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL="https://qzswnoeglovfpgrzpnio.supabase.co";
+const SUPABASE_KEY="sb_publishable_k_mSqLmEL-OMvM5x7slx7w_EqR0HXqY";
+
+let currentUser=null;
+let currentAuthUser=null;
+
+async function api(path,options={}){
+ const token=options.token||localStorage.getItem("brp_access_token")||SUPABASE_KEY;
+ const fetchOptions={...options};
+ delete fetchOptions.token;
+ const headers={
+  apikey:SUPABASE_KEY,
+  Authorization:"Bearer "+token,
+  "Content-Type":"application/json",
+  ...(options.headers||{})
+ };
+ const response=await fetch(SUPABASE_URL+path,{...fetchOptions,headers});
+ const raw=await response.text();
+ let data;
+ try{data=raw?JSON.parse(raw):null}catch{data=raw}
+ if(!response.ok)throw Error(typeof data==="string"?data:JSON.stringify(data));
+ return data;
 }
 
-$('authForm').addEventListener('submit',e=>{
- e.preventDefault();
- const name=$('username').value.trim();
- const pass=$('password').value;
- const key=name.toLowerCase();
- const msg=$('msg');
+function switchAuth(type){
+ const login=type==="login";
+ document.getElementById("loginForm").classList.toggle("hidden",!login);
+ document.getElementById("registerForm").classList.toggle("hidden",login);
+ document.getElementById("loginTab").classList.toggle("active",login);
+ document.getElementById("registerTab").classList.toggle("active",!login);
+}
 
- if(register){
-  if(pass!==$('confirm').value){msg.textContent='Пароли не совпадают.';return}
-  if(key==='admin'){msg.textContent='Имя Admin зарезервировано.';return}
-  if(users.some(u=>u.name.toLowerCase()===key)){msg.textContent='Такой логин уже существует в этом сеансе.';return}
-  users.push({name,password:pass});
-  enter(name);
+function showAuth(){
+ document.getElementById("authScreen").classList.remove("hidden");
+ document.getElementById("app").classList.add("hidden");
+}
+
+function showApp(){
+ document.getElementById("authScreen").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+}
+
+function saveSession(data){
+ if(data.access_token)localStorage.setItem("brp_access_token",data.access_token);
+ if(data.refresh_token)localStorage.setItem("brp_refresh_token",data.refresh_token);
+}
+
+function clearSession(){
+ localStorage.removeItem("brp_access_token");
+ localStorage.removeItem("brp_refresh_token");
+}
+
+function setMessage(id,message,color="#ff2633"){
+ const el=document.getElementById(id);
+ el.textContent=message;
+ el.style.color=color;
+}
+
+function cleanError(t){
+ if(t.includes("Invalid login credentials"))return "Неверный логин или пароль.";
+ if(t.includes("Email not confirmed"))return "Сначала подтверди почту.";
+ if(t.includes("User already registered"))return "Эта почта уже зарегистрирована.";
+ if(t.includes("Invalid API key"))return "Ошибка ключа Supabase.";
+ if(t.includes("Failed to fetch"))return "Нет соединения с сервером.";
+ if(t.toLowerCase().includes("permission denied"))return "Нет разрешения Supabase.";
+ return String(t).replace(/[{}\[\]"]/g,"").slice(0,200);
+}
+
+async function registerAccount(){
+ const username=document.getElementById("regUsername").value.trim();
+ const email=document.getElementById("regEmail").value.trim();
+ const password=document.getElementById("regPassword").value;
+ const password2=document.getElementById("regPassword2").value;
+
+ if(!/^[a-zA-Z0-9_]{3,24}$/.test(username))
+  return setMessage("registerMessage","Логин: 3–24 символа, латиница, цифры и _.");
+ if(!email.includes("@"))
+  return setMessage("registerMessage","Введите корректную почту.");
+ if(password.length<6)
+  return setMessage("registerMessage","Пароль должен содержать минимум 6 символов.");
+ if(password!==password2)
+  return setMessage("registerMessage","Пароли не совпадают.");
+
+ try{
+  setMessage("registerMessage","Проверяем логин...","#aaa");
+  const existing=await api(
+   "/rest/v1/profiles?select=id&username=ilike."+encodeURIComponent(username)+"&limit=1",
+   {token:SUPABASE_KEY}
+  );
+  if(existing?.length)
+   return setMessage("registerMessage","Этот игровой логин уже занят.");
+
+  const auth=await api("/auth/v1/signup",{
+   method:"POST",
+   token:SUPABASE_KEY,
+   body:JSON.stringify({email,password,data:{username}})
+  });
+
+  if(auth?.access_token){
+   saveSession(auth);
+   await loadSession();
+   return;
+  }
+
+  setMessage("registerMessage","Аккаунт создан. Проверь почту для подтверждения.","#ffc928");
+ }catch(e){
+  setMessage("registerMessage",cleanError(e.message));
+ }
+}
+
+async function loginAccount(){
+ const username=document.getElementById("loginUsername").value.trim();
+ const password=document.getElementById("loginPassword").value;
+
+ if(!username||!password)
+  return setMessage("loginMessage","Введите логин и пароль.");
+
+ try{
+  setMessage("loginMessage","Ищем аккаунт...","#aaa");
+
+  const result=await api("/rest/v1/rpc/get_login_email",{
+   method:"POST",
+   token:SUPABASE_KEY,
+   body:JSON.stringify({p_username:username})
+  });
+
+  const email=typeof result==="string"?result:result?.email;
+  if(!email)
+   return setMessage("loginMessage","Аккаунт не найден.");
+
+  const auth=await api("/auth/v1/token?grant_type=password",{
+   method:"POST",
+   token:SUPABASE_KEY,
+   body:JSON.stringify({email,password})
+  });
+
+  saveSession(auth);
+  await loadSession();
+ }catch(e){
+  setMessage("loginMessage",cleanError(e.message));
+ }
+}
+
+async function loadSession(){
+ const token=localStorage.getItem("brp_access_token");
+ if(!token){
+  showAuth();
   return;
  }
 
- const user=users.find(u=>u.name.toLowerCase()===key&&u.password===pass);
- if(!user){msg.textContent='Неверный логин или пароль.';return}
- enter(user.name);
-});
-
-function enter(name){
- currentUser=name;
- $('authScreen').classList.add('hidden');
- $('app').classList.remove('hidden');
- $('topName').textContent=name;
- $('topAvatar').textContent=name.charAt(0).toUpperCase();
- go('news');
- checkServer();
-}
-
-function logout(){
- currentUser='';
- $('app').classList.add('hidden');
- $('authScreen').classList.remove('hidden');
- $('username').value='';
- $('password').value='';
- $('msg').textContent='';
- setMode(false);
-}
-
-function go(p){
- page=p;
- document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
- const main=$('main');
- if(p==='news')main.innerHTML=newsPage();
- else if(p==='profile')main.innerHTML=profilePage();
- else if(p==='messages')main.innerHTML=messagesPage();
- else if(p==='friends')main.innerHTML=friendsPage();
- else if(p==='groups')main.innerHTML=groupsPage();
- else if(p==='photos')main.innerHTML='<h2>Фотографии</h2><div class="card empty">Фотографий пока нет.</div>';
- else if(p==='settings')main.innerHTML=settingsPage();
-}
-
-function composer(){
- return `<div class="card"><div class="row"><div class="avatar">${esc(currentUser[0])}</div><textarea id="postText" rows="2" placeholder="Что у вас нового?"></textarea></div><div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="red" onclick="publishPost()">Опубликовать</button></div></div>`;
-}
-function postCard(p){
- const liked=likes.has(p.id);
- return `<div class="card post" data-post="${esc(p.text.toLowerCase())}">
- <div class="posthead"><div class="avatar">${esc(p.user[0])}</div><div><b>${esc(p.user)}</b><div class="muted">${esc(p.time)}</div></div>${p.user==='Admin'?'<span class="muted" style="margin-left:auto">Администратор</span>':''}</div>
- <div class="postbody">${esc(p.text)}</div>
- <div class="actions"><button onclick="toggleLike(${p.id})">${liked?'♥':'♡'} ${p.likes+(liked?1:0)}</button><button onclick="commentPost(${p.id})">▢ Комментировать</button><button onclick="sharePost(${p.id})">↗ Репост</button></div>
- ${p.comments.map(c=>`<p style="margin-top:10px"><b>${esc(c.user)}:</b> ${esc(c.text)}</p>`).join('')}</div>`;
-}
-function newsPage(){
- return `<h2>Новости</h2>${composer()}<div id="feed">${posts.length?posts.map(postCard).join(''):'<div class="card empty">Пока нет публикаций. Создай первую запись!</div>'}</div>`;
-}
-function profilePage(){
- const own=posts.filter(p=>p.user===currentUser);
- return `<div class="card"><div class="cover"></div><div class="profilehead"><div class="row"><div class="avatar bigavatar">${esc(currentUser[0])}</div><div><h2 style="margin:0">${esc(currentUser)}</h2><p class="muted">${currentUser==='Admin'?'Администратор MKHost':'Участник MKHost'}</p></div></div><div class="stats"><div><strong>0</strong><span class="muted">Друзья</span></div><div><strong>${own.length}</strong><span class="muted">Записи</span></div></div></div></div><h2>Мои записи</h2>${composer()}${own.length?own.map(postCard).join(''):'<div class="card empty">У тебя пока нет записей.</div>'}`;
-}
-function publishPost(){
- const el=$('postText');
- if(!el||!el.value.trim())return;
- posts.unshift({id:Date.now(),user:currentUser,text:el.value.trim(),time:'только что',likes:0,comments:[]});
- go(page);
-}
-function toggleLike(id){if(likes.has(id))likes.delete(id);else likes.add(id);go(page)}
-function commentPost(id){
- const text=prompt('Комментарий:');
- if(!text||!text.trim())return;
- const p=posts.find(p=>p.id===id);
- if(p){p.comments.push({user:currentUser,text:text.trim()});go(page)}
-}
-function sharePost(id){
- const p=posts.find(p=>p.id===id);
- if(p){posts.unshift({...p,id:Date.now(),user:currentUser,text:'Репост: '+p.text,comments:[]});go('news')}
-}
-function friendsPage(){
- return `<h2>Друзья</h2><div class="card"><input id="friendSearch" placeholder="Поиск пользователей" oninput="renderUsers(this.value)"><div id="usersList" style="margin-top:12px"></div></div>`;
-}
-function renderUsers(q=''){
- const el=$('usersList');if(!el)return;
- const list=users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase()));
- el.innerHTML=list.map(u=>`<div class="row" style="padding:10px 0"><div class="avatar">${esc(u.name[0])}</div><div style="flex:1"><b>${esc(u.name)}</b><p class="muted">${u.name==='Admin'?'Администратор':'Участник'}</p></div><button class="dark" onclick="openChat('${esc(u.name)}')">Написать</button></div>`).join('')||'<p class="muted">Пользователи не найдены.</p>';
-}
-function groupsPage(){
- return `<h2>Сообщества</h2><div class="card"><div class="row"><div class="avatar">M</div><div><h3>MKHost Minecraft</h3><p class="muted">Игровое сообщество</p></div></div><p style="margin:15px 0">Общение, новости и события сервера Kartaviy.</p><button class="red" onclick="go('news')">Открыть новости</button></div>`;
-}
-function settingsPage(){
- return `<h2>Настройки</h2><div class="card"><h3>Текущий аккаунт</h3><p style="margin:12px 0">${esc(currentUser)}</p><p class="muted" style="margin-bottom:15px">Данные демонстрационной версии хранятся только до перезагрузки страницы.</p><button class="red" onclick="logout()">Выйти из аккаунта</button></div>${currentUser==='Admin'?'<div class="card"><h3>Администратор</h3><p class="muted" style="margin-top:10px">Вы вошли в демонстрационный аккаунт Admin.</p></div>':''}`;
-}
-function messagesPage(){
- const otherUsers=users.filter(u=>u.name!==currentUser);
- return `<h2>Мессенджер</h2><div class="card"><h3 style="margin-bottom:12px">Выбери пользователя</h3>${otherUsers.map(u=>`<button class="dark" style="margin:0 6px 6px 0" onclick="openChat('${esc(u.name)}')">${esc(u.name)}</button>`).join('')||'<p class="muted">Других пользователей пока нет.</p>'}<hr style="border-color:#292929;margin:14px 0"><h3 style="margin-bottom:12px">Диалог: ${esc(activeChat)}</h3><div id="chatMessages" style="min-height:80px;max-height:230px;overflow:auto;margin-bottom:12px"></div><div class="row"><input id="chatInput" placeholder="Сообщение..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="red" onclick="sendMessage()">➤</button></div><p class="muted" style="margin-top:12px">Демонстрационная переписка в текущем сеансе.</p></div>`;
-}
-function openChat(name){activeChat=name;go('messages')}
-function sendMessage(){
- const el=$('chatInput');if(!el||!el.value.trim())return;
- if(!chats[activeChat])chats[activeChat]=[];
- chats[activeChat].push({from:currentUser,text:el.value.trim()});
- el.value='';
- renderMessages();
-}
-function renderMessages(){
- const el=$('chatMessages');if(!el)return;
- el.innerHTML=(chats[activeChat]||[]).map(m=>`<div style="background:#222;padding:10px;border-radius:7px;margin-bottom:7px"><b>${esc(m.from)}</b><p style="margin-top:5px">${esc(m.text)}</p></div>`).join('')||'<p class="muted">Сообщений пока нет.</p>';
-}
-function searchPosts(q){
- if(page!=='news')go('news');
- document.querySelectorAll('[data-post]').forEach(el=>el.classList.toggle('hidden',!el.dataset.post.includes(q.toLowerCase())));
-}
-function esc(s){
- return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function copyAddress(){
- if(navigator.clipboard&&window.isSecureContext){
-  navigator.clipboard.writeText('Kartaviy.aternos.me').then(()=>alert('Адрес скопирован')).catch(()=>alert('Адрес сервера: Kartaviy.aternos.me'));
- }else alert('Адрес сервера: Kartaviy.aternos.me');
-}
-async function checkServer(){
  try{
-  const r=await fetch('https://api.mcsrvstat.us/3/Kartaviy.aternos.me');
-  if(!r.ok)throw Error();
-  const d=await r.json();
-  if(d.online){
-   $('serverStatus').innerHTML='<span class="dot on"></span>Сервер онлайн';
-   $('serverPlayers').textContent='Игроки: '+(d.players?.online??0)+' / '+(d.players?.max??'?');
-  }else{
-   $('serverStatus').innerHTML='<span class="dot"></span>Сервер офлайн';
-   $('serverPlayers').textContent='Возможно, сервер Aternos не запущен.';
+  currentAuthUser=await api("/auth/v1/user",{
+   headers:{Authorization:"Bearer "+token}
+  });
+
+  if(!currentAuthUser?.id)throw Error("Сессия недействительна.");
+
+  let rows=await api(
+   "/rest/v1/profiles?id=eq."+encodeURIComponent(currentAuthUser.id)+"&select=*"
+  );
+
+  if(!rows?.length){
+   const username=currentAuthUser.user_metadata?.username||
+    currentAuthUser.email?.split("@")[0]||"Player";
+
+   rows=await api("/rest/v1/profiles",{
+    method:"POST",
+    headers:{Prefer:"return=representation"},
+    body:JSON.stringify({
+     id:currentAuthUser.id,
+     username,
+     level:1,
+     xp:0,
+     cash:0,
+     bank:0,
+     donate:0,
+     job:"Безработный"
+    })
+   });
   }
+
+  currentUser=rows[0];
+  renderProfile();
+  showApp();
+  await updateOnline();
  }catch(e){
-  $('serverStatus').innerHTML='<span class="dot"></span>Статус недоступен';
-  $('serverPlayers').textContent='Не удалось проверить статус.';
+  console.error(e);
+  clearSession();
+  currentUser=null;
+  currentAuthUser=null;
+  showAuth();
  }
 }
+
+function money(n){
+ return "₽ "+Number(n||0).toLocaleString("ru-RU");
+}
+
+function renderProfile(){
+ if(!currentUser)return;
+ const p=currentUser;
+ const set=(id,value)=>{
+  const el=document.getElementById(id);
+  if(el)el.textContent=value;
+ };
+
+ set("homeName",p.username||"Player");
+ set("homeLevel",Number(p.level||1));
+ set("homeXP",Number(p.xp||0)+" XP");
+ set("homeCash",money(p.cash));
+ set("homeBank",money(p.bank));
+ set("topCash",money(p.cash));
+ set("topDonate","♦ "+Number(p.donate||0).toLocaleString("ru-RU"));
+ set("profileId","ID: "+p.id);
+ set("profileJob",p.job||"Безработный");
+}
+
+async function updateOnline(){
+ if(!currentUser||!currentAuthUser)return;
+ try{
+  await api("/rest/v1/online_players",{
+   method:"POST",
+   headers:{Prefer:"resolution=merge-duplicates"},
+   body:JSON.stringify({
+    id:currentAuthUser.id,
+    username:currentUser.username,
+    online:true,
+    last_seen:new Date().toISOString()
+   })
+  });
+ }catch(e){
+  console.warn("Online update:",e);
+ }
+}
+
+async function logout(){
+ try{
+  if(currentAuthUser?.id){
+   await api("/rest/v1/online_players?id=eq."+
+    encodeURIComponent(currentAuthUser.id),{
+    method:"PATCH",
+    body:JSON.stringify({
+     online:false,
+     last_seen:new Date().toISOString()
+    })
+   });
+  }
+ }catch(e){}
+
+ try{
+  await api("/auth/v1/logout",{method:"POST"});
+ }catch(e){}
+
+ clearSession();
+ currentUser=null;
+ currentAuthUser=null;
+ showAuth();
+ switchAuth("login");
+ document.getElementById("loginUsername").value="";
+ document.getElementById("loginPassword").value="";
+}
+
+window.addEventListener("beforeunload",()=>{
+ if(!currentAuthUser?.id)return;
+ const token=localStorage.getItem("brp_access_token");
+ fetch(SUPABASE_URL+"/rest/v1/online_players?id=eq."+
+  encodeURIComponent(currentAuthUser.id),{
+  method:"PATCH",
+  keepalive:true,
+  headers:{
+   apikey:SUPABASE_KEY,
+   Authorization:"Bearer "+token,
+   "Content-Type":"application/json"
+  },
+  body:JSON.stringify({
+   online:false,
+   last_seen:new Date().toISOString()
+  })
+ });
+});
+
+document.addEventListener("DOMContentLoaded",async()=>{
+ switchAuth("login");
+ await loadSession();
+
+ setInterval(()=>{
+  if(currentUser)updateOnline();
+ },15000);
+});
 </script>
 </body>
 </html>
