@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLACK RUSSIA — Управление АЗС</title>
+<style>
+:root{
+ --bg:#080808;--panel:#141414;--panel2:#1c1c1c;
+ --line:#292929;--red:#e50914;--muted:#888;
+ --green:#31d47a;--white:#fff;--yellow:#e6b84a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#241010 0%,#080808 55%);color:var(--white);font-family:Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+header{padding:20px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-size:20px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--red)}
+.back{color:#fff;text-decoration:none;background:#202020;border:1px solid var(--line);padding:10px 14px;border-radius:9px;font-size:13px}
+main{max-width:1100px;margin:auto;padding:25px 18px 60px}
+.eyebrow{color:var(--red);font-size:11px;font-weight:bold;letter-spacing:2px}
+h1{font-size:29px;margin:8px 0}
+.subtitle{color:var(--muted);font-size:13px;line-height:1.5}
+.station{margin-top:22px;padding:20px;border:1px solid #492026;border-radius:15px;background:linear-gradient(120deg,#281014,#171010 65%,#141414)}
+.station h2{margin:0 0 7px;font-size:20px}
+.station p{margin:0;color:#aaa;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:17px}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px}
+.stat small{display:block;color:var(--muted);font-size:11px;margin-bottom:9px}
+.stat strong{font-size:21px}
+.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
+.section-title{font-size:17px;margin:28px 0 13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.panel h3{font-size:15px;margin:0 0 15px}
+.fuel{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.fuel:last-child{border:0}
+.fuel small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.fuel input{width:100%;max-width:105px;background:#090909;border:1px solid var(--line);color:white;border-radius:8px;padding:10px}
+.btn{border:0;background:var(--red);color:white;padding:12px 15px;border-radius:9px;font-weight:bold;width:100%;margin-top:13px}
+.btn.secondary{background:#292929}
+.btn:active{transform:scale(.98)}
+.employee{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.employee:last-child{border:0}
+.tag{font-size:10px;padding:5px 8px;border-radius:6px;background:#183222;color:var(--green)}
+.upgrade{padding:13px 0;border-bottom:1px solid var(--line)}
+.upgrade:last-child{border:0}
+.upgrade p{font-size:11px;color:var(--muted);margin:5px 0}
+.upgrade button{background:#292929;color:#fff;border:1px solid #393939;border-radius:7px;padding:8px 12px;font-size:11px}
+.history{font-size:12px}
+.history-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);gap:12px}
+.history-row:last-child{border:0}
+.note{margin-top:20px;color:#777;font-size:11px;line-height:1.5;text-align:center}
+@media(max-width:700px){
+ header{padding:16px}
+ main{padding:22px 13px 45px}
+ h1{font-size:24px}
+ .stats{grid-template-columns:1fr 1fr}
+ .grid{grid-template-columns:1fr}
+ .stat strong{font-size:19px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">BLACK <span>RUSSIA</span></div>
+ <a class="back" href="gaz.html">← К списку АЗС</a>
+</header>
+
+<main>
+ <div class="eyebrow">БИЗНЕС / УПРАВЛЕНИЕ</div>
+ <h1>Панель управления АЗС</h1>
+ <div class="subtitle">Контролируйте работу своей заправки, цены, топливо и сотрудников.</div>
+
+ <div class="station">
+  <h2>Центральная АЗС</h2>
+  <p>Городская заправка · 6 топливных колонок</p>
+ </div>
+
+ <div class="stats">
+  <div class="stat"><small>Баланс бизнеса</small><strong>₽ 845 200</strong></div>
+  <div class="stat"><small>Доход за сутки</small><strong class="green">+₽ 68 450</strong></div>
+  <div class="stat"><small>Расходы за сутки</small><strong class="red">−₽ 21 300</strong></div>
+  <div class="stat"><small>Чистая прибыль</small><strong class="green">₽ 47 150</strong></div>
+ </div>
+
+ <h2 class="section-title">Топливо и цены</h2>
+ <div class="grid">
+  <section class="panel">
+   <h3>Остатки на складе</h3>
+   <div class="fuel"><div>АИ-92<small>Остаток: 3 500 л</small></div><strong>3 500 л</strong></div>
+   <div class="fuel"><div>АИ-95<small>Остаток: 2 800 л</small></div><strong>2 800 л</strong></div>
+   <div class="fuel"><div>АИ-100<small>Остаток: 900 л</small></div><strong>900 л</strong></div>
+   <div class="fuel"><div>Дизель<small>Остаток: 1 600 л</small></div><strong>1 600 л</strong></div>
+   <button class="btn" onclick="alert('Закупка топлива будет подключена к игровой экономике.')">Закупить топливо</button>
+  </section>
+
+  <section class="panel">
+   <h3>Установка цен за литр</h3>
+   <div class="fuel"><div>АИ-92<small>Текущая цена: 58 ₽</small></div><input type="number" min="1" value="58"></div>
+   <div class="fuel"><div>АИ-95<small>Текущая цена: 64 ₽</small></div><input type="number" min="1" value="64"></div>
+   <div class="fuel"><div>АИ-100<small>Текущая цена: 75 ₽</small></div><input type="number" min="1" value="75"></div>
+   <div class="fuel"><div>Дизель<small>Текущая цена: 62 ₽</small></div><input type="number" min="1" value="62"></div>
+   <button class="btn" onclick="alert('Сохранение цен подключим к Supabase.')">Сохранить цены</button>
+  </section>
+ </div>
+
+ <h2 class="section-title">Сотрудники</h2>
+ <div class="grid">
+  <section class="panel">
+   <h3>Персонал заправки</h3>
+   <div class="employee"><span>Заправщик №1</span><span class="tag">Работает</span></div>
+   <div class="employee"><span>Заправщик №2</span><span class="tag">Работает</span></div>
+   <div class="employee"><span>Кассир</span><span class="tag">Работает</span></div>
+   <button class="btn secondary" onclick="alert('Найм сотрудников появится в следующем этапе.')">Нанять сотрудника</button>
+  </section>
+
+  <section class="panel">
+   <h3>Улучшения АЗС</h3>
+   <div class="upgrade">
+    <strong>Дополнительная колонка</strong>
+    <p>Увеличивает количество одновременно обслуживаемых машин.</p>
+    <button onclick="alert('Покупка улучшений будет подключена к экономике.')">Улучшить · 250 000 ₽</button>
+   </div>
+   <div class="upgrade">
+    <strong>Расширение склада</strong>
+    <p>Позволяет хранить больше топлива.</p>
+    <button onclick="alert('Покупка улучшений будет подключена к экономике.')">Улучшить · 180 000 ₽</button>
+   </div>
+   <div class="upgrade">
+    <strong>Реклама заправки</strong>
+    <p>Повышает поток клиентов.</p>
+    <button onclick="alert('Покупка улучшений будет подключена к экономике.')">Улучшить · 90 000 ₽</button>
+   </div>
+  </section>
+ </div>
+
+ <h2 class="section-title">Финансовая история</h2>
+ <section class="panel history">
+  <div class="history-row"><span>Продажа АИ-95 · 120 л</span><strong class="green">+7 680 ₽</strong></div>
+  <div class="history-row"><span>Закупка АИ-92</span><strong class="red">−35 000 ₽</strong></div>
+  <div class="history-row"><span>Продажа дизеля · 80 л</span><strong class="green">+4 960 ₽</strong></div>
+  <div class="history-row"><span>Зарплата сотрудникам</span><strong class="red">−12 000 ₽</strong></div>
+ </section>
+
+ <div class="note">Демонстрационные данные. Реальные цены, баланс, сотрудники и операции подключим к общей базе игры.</div>
+</main>
+</body>
+</html>
