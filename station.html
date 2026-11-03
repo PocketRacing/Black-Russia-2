@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#080808">
+<title>BLACK RUSSIA — Заправка</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#080808;--panel:#141414;--line:#292929;
+--red:#e50914;--muted:#888;--green:#31d47a;
+}
+body{background:var(--bg);color:#fff;font:14px Arial,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+a{color:inherit;text-decoration:none}
+header{
+position:sticky;top:0;z-index:5;display:flex;
+justify-content:space-between;align-items:center;
+padding:16px;background:#0b0b0bf5;border-bottom:1px solid var(--line)
+}
+header strong{font-size:17px}
+header strong span{color:var(--red)}
+.money{color:var(--green);font-size:11px;margin-top:4px;text-align:right}
+main{max-width:850px;margin:auto;padding:17px 14px 110px}
+.hero,.card,.stat{
+background:var(--panel);border:1px solid var(--line);
+border-radius:12px;padding:17px
+}
+.hero{
+background:linear-gradient(120deg,#401014,#141414 75%);
+margin-bottom:13px;position:relative;overflow:hidden
+}
+.hero-icon{font-size:55px;margin:15px 0}
+.label{font-size:10px;letter-spacing:2px;color:var(--red);font-weight:bold}
+h1{font-size:25px;margin:8px 0}
+h2{font-size:19px;margin-bottom:12px}
+.muted{color:var(--muted);font-size:12px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:13px 0}
+.stat small{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}
+.stat b{font-size:18px}
+.section-title{font-size:19px;margin:23px 0 12px}
+.card{margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #292929}
+.row:last-child{border-bottom:0}
+.row small{color:var(--muted);font-size:11px}
+.row b{text-align:right;font-size:13px}
+.status{color:var(--green)}
+.status.busy{color:#ff626b}
+.price{color:var(--red)}
+.button{
+display:flex;justify-content:center;align-items:center;
+width:100%;padding:14px;border-radius:8px;
+background:#242424;border:1px solid #333;color:white;
+font-size:12px;font-weight:bold;margin-top:9px
+}
+.button.red{background:var(--red);border-color:var(--red)}
+.button:disabled{opacity:.4;cursor:not-allowed}
+.notice{
+padding:13px;background:#1b1113;border:1px solid #4a1b21;
+border-radius:9px;color:#d8a5a8;font-size:11px;line-height:1.6;margin-top:13px
+}
+.back{display:inline-block;color:#aaa;font-size:12px;margin-bottom:14px}
+.back:hover{color:var(--red)}
+.owner{
+display:flex;align-items:center;gap:12px;
+padding:13px;background:#0b0b0b;border:1px solid #292929;border-radius:9px
+}
+.avatar{
+width:42px;height:42px;border-radius:9px;background:#301014;
+display:grid;place-items:center;font-size:21px
+}
+.bottom-nav{
+position:fixed;bottom:0;left:0;right:0;z-index:10;
+display:flex;justify-content:space-around;background:#090909f5;
+border-top:1px solid var(--line);
+padding:9px 2px calc(9px + env(safe-area-inset-bottom))
+}
+.bottom-nav a{flex:1;color:#888;text-align:center;font-size:10px;padding:4px 1px}
+.bottom-nav a span{display:block;font-size:20px;margin-bottom:4px}
+.bottom-nav a.active,.bottom-nav a:hover{color:var(--red)}
+@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+<strong>BLACK <span>RUSSIA</span></strong>
+<div>
+<div class="money" id="topCash">₽ 0</div>
+<div class="money" id="playerName">Игрок</div>
+</div>
+</header>
+
+<main>
+<a href="gaz.html" class="back">← К СПИСКУ ЗАПРАВОК</a>
+
+<section class="hero">
+<div class="label" id="stationNumber">ГОСУДАРСТВЕННАЯ АЗС</div>
+<div class="hero-icon">⛽</div>
+<h1 id="stationName">Заправка</h1>
+<p class="muted" id="stationLocation">Местоположение</p>
+</section>
+
+<div class="stats">
+<div class="stat"><small>СТАТУС</small><b id="stationStatus">Свободна</b></div>
+<div class="stat"><small>КОЛОНКИ</small><b id="stationPumps">0</b></div>
+<div class="stat"><small>ТИП</small><b id="stationType">—</b></div>
+<div class="stat"><small>АРЕНДА / СУТКИ</small><b id="stationRent" class="price">₽ 0</b></div>
+</div>
+
+<section class="card">
+<h2>Информация об АЗС</h2>
+<div class="row"><small>Номер заправки</small><b id="infoId">—</b></div>
+<div class="row"><small>Владелец объекта</small><b>Государство</b></div>
+<div class="row"><small>Текущий арендатор</small><b id="infoOwner">Нет</b></div>
+<div class="row"><small>Срок аренды</small><b id="infoLease">Не арендована</b></div>
+</section>
+
+<section class="card">
+<h2>Условия аренды</h2>
+<div class="row"><small>Стоимость аренды</small><b id="rentPrice" class="price">₽ 0</b></div>
+<div class="row"><small>Период оплаты</small><b>24 часа</b></div>
+<div class="row"><small>Лимит на игрока</small><b>1 АЗС</b></div>
+<div class="row"><small>Управление бизнесом</small><b>Доступно арендатору</b></div>
+<div id="rentAction">
+<button class="button red" id="rentButton" onclick="rentStation()">АРЕНДОВАТЬ ЗАПРАВКУ</button>
+</div>
+<div class="notice">
+АЗС остаётся государственной собственностью. Игрок получает право управления на время оплаченной аренды. Один аккаунт может арендовать только одну заправку.
+</div>
+</section>
+
+<section class="card">
+<h2>Текущий арендатор</h2>
+<div class="owner">
+<div class="avatar">👤</div>
+<div>
+<b id="ownerName">Свободная заправка</b>
+<p class="muted" id="ownerDescription">АЗС ожидает нового арендатора.</p>
+</div>
+</div>
+</section>
+
+<button class="button" onclick="location.href='gaz.html'">НАЗАД К СПИСКУ АЗС</button>
+</main>
+
+<nav class="bottom-nav">
+<a href="index.html"><span>🏠</span>Главная</a>
+<a href="jobs.html"><span>💼</span>Работа</a>
+<a href="garage.html"><span>🚗</span>Гараж</a>
+<a href="pass.html"><span>🏆</span>Pass</a>
+<a href="profile.html"><span>👤</span>Профиль</a>
+</nav>
+
+<script>
+const SUPABASE_URL="https://qzswnoeglovfpgrzpnio.supabase.co";
+const SUPABASE_KEY="sb_publishable_k_mSqLmEL-OMvM5x7slx7w_EqR0HXqY";
+
+let currentUser=null;
+let currentAuthUser=null;
+
+const stations=[
+{id:1,name:"Центральная АЗС",location:"Центр города",type:"Городская",pumps:6,rent:120000,owner:null},
+{id:2,name:"Заправка у трассы",location:"Южная трасса",type:"Трассовая",pumps:10,rent:200000,owner:"Dimulyaaa"},
+{id:3,name:"Северная АЗС",location:"Северный район",type:"Малая",pumps:2,rent:50000,owner:null},
+{id:4,name:"Западная АЗС",location:"Западный район",type:"Городская",pumps:6,rent:120000,owner:"Alex_RP"},
+{id:5,name:"Восточная АЗС",location:"Восточный район",type:"Малая",pumps:2,rent:50000,owner:null},
+{id:6,name:"Пригородная АЗС",location:"Пригород",type:"Трассовая",pumps:10,rent:200000,owner:null}
+];
+
+function money(n){
+return "₽ "+Number(n||0).toLocaleString("ru-RU");
+}
+
+async function api(path,options={}){
+const token=options.token||localStorage.getItem("brp_access_token")||SUPABASE_KEY;
+const fetchOptions={...options};
+delete fetchOptions.token;
+const headers={
+apikey:SUPABASE_KEY,
+Authorization:"Bearer "+token,
+"Content-Type":"application/json",
+...(options.headers||{})
+};
+const response=await fetch(SUPABASE_URL+path,{...fetchOptions,headers});
+const raw=await response.text();
+let data;
+try{data=raw?JSON.parse(raw):null}catch{data=raw}
+if(!response.ok)throw Error(typeof data==="string"?data:JSON.stringify(data));
+return data;
+}
+
+async function loadPlayer(){
+const token=localStorage.getItem("brp_access_token");
+if(!token){location.href="index.html";return false}
+try{
+currentAuthUser=await api("/auth/v1/user");
+if(!currentAuthUser?.id)throw Error("Нет пользователя");
+const rows=await api("/rest/v1/profiles?id=eq."+
+encodeURIComponent(currentAuthUser.id)+"&select=*");
+if(!rows?.length)throw Error("Профиль не найден");
+currentUser=rows[0];
+document.getElementById("playerName").textContent=currentUser.username||"Игрок";
+document.getElementById("topCash").textContent=money(currentUser.cash);
+return true;
+}catch(e){
+console.error(e);
+location.href="index.html";
+return false;
+}
+}
+
+function getStation(){
+const id=Number(new URLSearchParams(location.search).get("id"));
+return stations.find(s=>s.id===id)||null;
+}
+
+function renderStation(s){
+document.title="BLACK RUSSIA — "+s.name;
+document.getElementById("stationNumber").textContent="ГОСУДАРСТВЕННАЯ АЗС №"+s.id;
+document.getElementById("stationName").textContent=s.name;
+document.getElementById("stationLocation").textContent="📍 "+s.location;
+document.getElementById("stationPumps").textContent=s.pumps;
+document.getElementById("stationType").textContent=s.type;
+document.getElementById("stationRent").textContent=money(s.rent);
+document.getElementById("rentPrice").textContent=money(s.rent);
+document.getElementById("infoId").textContent="#"+s.id;
+document.getElementById("infoOwner").textContent=s.owner||"Нет";
+document.getElementById("stationStatus").textContent=s.owner?"ЗАНЯТА":"СВОБОДНА";
+document.getElementById("stationStatus").className=s.owner?"status busy":"status";
+document.getElementById("ownerName").textContent=s.owner||"Свободная заправка";
+document.getElementById("ownerDescription").textContent=
+s.owner?"АЗС находится в управлении арендатора.":"АЗС ожидает нового арендатора.";
+document.getElementById("infoLease").textContent=s.owner?"Активна":"Не арендована";
+
+const button=document.getElementById("rentButton");
+if(s.owner){
+button.textContent="ЗАПРАВКА УЖЕ АРЕНДОВАНА";
+button.disabled=true;
+button.classList.remove("red");
+}else{
+button.textContent="АРЕНДОВАТЬ ЗАПРАВКУ";
+button.disabled=false;
+button.classList.add("red");
+}
+}
+
+function rentStation(){
+alert("Система аренды пока находится в разработке. Подключим её к Supabase, чтобы аренда сохранялась для всех игроков и нельзя было арендовать две АЗС.");
+}
+
+document.addEventListener("DOMContentLoaded",async()=>{
+const ok=await loadPlayer();
+if(!ok)return;
+const station=getStation();
+if(!station){
+document.querySelector("main").innerHTML=
+'<div class="card"><h2>АЗС не найдена</h2><p class="muted">Вернись к списку заправок и выбери существующий объект.</p><a class="button red" href="gaz.html">К СПИСКУ АЗС</a></div>';
+return;
+}
+renderStation(station);
+});
+</script>
+</body>
+</html>
