@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#080808">
+<title>BLACK RUSSIA — АЗС</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#080808;
+--panel:#141414;
+--line:#292929;
+--red:#e50914;
+--muted:#888;
+--green:#31d47a;
+}
+body{background:var(--bg);color:#fff;font:14px Arial,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+a{color:inherit;text-decoration:none}
+header{
+position:sticky;top:0;z-index:5;
+display:flex;justify-content:space-between;align-items:center;
+padding:16px;background:#0b0b0bf5;border-bottom:1px solid var(--line)
+}
+header strong{font-size:17px}
+header strong span{color:var(--red)}
+.money{color:var(--green);font-size:11px;margin-top:4px;text-align:right}
+main{max-width:900px;margin:auto;padding:17px 14px 100px}
+.hero,.card,.stat{
+background:var(--panel);border:1px solid var(--line);
+border-radius:12px;padding:17px
+}
+.hero{background:linear-gradient(120deg,#401014,#141414 75%);margin-bottom:15px}
+.hero h1{font-size:25px;margin:8px 0}
+.muted{color:var(--muted);font-size:12px;line-height:1.5}
+.label{font-size:10px;letter-spacing:2px;color:#e50914;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:13px 0}
+.stat small{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}
+.stat b{font-size:18px}
+.section-title{font-size:19px;margin:23px 0 12px}
+.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:5px;margin-bottom:13px}
+.filters button{
+flex-shrink:0;padding:10px 14px;border-radius:8px;
+background:#202020;color:#aaa;border:1px solid #333;font-size:11px
+}
+.filters button.active{background:var(--red);color:white;border-color:var(--red)}
+.list{display:grid;gap:11px}
+.station{
+background:var(--panel);border:1px solid var(--line);
+border-radius:12px;overflow:hidden
+}
+.station-top{
+height:105px;padding:15px;
+display:flex;justify-content:space-between;align-items:flex-start;
+background:linear-gradient(110deg,#401014,#191919 75%);
+}
+.station-icon{font-size:35px}
+.station-number{font-size:10px;color:#aaa;letter-spacing:2px}
+.status{
+font-size:10px;font-weight:bold;padding:7px 10px;
+border-radius:6px;background:#163323;color:var(--green)
+}
+.status.busy{background:#351619;color:#ff626b}
+.station-body{padding:15px}
+.station-body h3{font-size:17px;margin-bottom:6px}
+.details{
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:10px;margin:15px 0
+}
+.detail{background:#0b0b0b;border:1px solid #292929;border-radius:8px;padding:11px}
+.detail small{display:block;color:var(--muted);font-size:10px;margin-bottom:6px}
+.detail b{font-size:13px}
+.red-text{color:var(--red)}
+.station-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price{font-weight:bold;font-size:15px}
+.price small{display:block;font-size:10px;color:var(--muted);font-weight:normal;margin-top:4px}
+.action{
+display:inline-flex;align-items:center;justify-content:center;
+padding:12px 17px;background:#242424;border:1px solid #333;
+border-radius:8px;color:white;font-size:11px;font-weight:bold
+}
+.action.red{background:var(--red);border-color:var(--red)}
+.action:hover{border-color:var(--red)}
+.empty{
+padding:30px 15px;text-align:center;color:var(--muted);
+background:var(--panel);border:1px solid var(--line);border-radius:12px
+}
+.bottom-nav{
+position:fixed;bottom:0;left:0;right:0;z-index:10;
+display:flex;justify-content:space-around;
+background:#090909f5;border-top:1px solid var(--line);
+padding:9px 2px calc(9px + env(safe-area-inset-bottom))
+}
+.bottom-nav a{flex:1;color:#888;text-align:center;font-size:10px;padding:4px 1px}
+.bottom-nav a span{display:block;font-size:20px;margin-bottom:4px}
+.bottom-nav a.active,.bottom-nav a:hover{color:var(--red)}
+@media(min-width:650px){
+.stats{grid-template-columns:repeat(4,1fr)}
+.list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+
+<header>
+<strong>BLACK <span>RUSSIA</span></strong>
+<div>
+<div id="topCash" class="money">₽ 0</div>
+<div id="playerName" class="money">Игрок</div>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div class="label">ГОСУДАРСТВЕННАЯ СИСТЕМА</div>
+<h1>АЗС BLACK RUSSIA</h1>
+<p class="muted">Заправки по всей территории штата. Выбирай подходящую станцию и попробуй стать её арендатором.</p>
+</section>
+
+<div class="stats">
+<div class="stat"><small>ВСЕГО ЗАПРАВОК</small><b id="totalCount">6</b></div>
+<div class="stat"><small>СВОБОДНО</small><b id="freeCount" style="color:var(--green)">4</b></div>
+<div class="stat"><small>АРЕНДОВАНО</small><b id="busyCount" style="color:var(--red)">2</b></div>
+<div class="stat"><small>МОЯ АЗС</small><b id="myCount">0 / 1</b></div>
+</div>
+
+<h2 class="section-title">Список заправок</h2>
+
+<div class="filters">
+<button class="active" onclick="setFilter('all',this)">Все заправки</button>
+<button onclick="setFilter('free',this)">Свободные</button>
+<button onclick="setFilter('busy',this)">Арендованные</button>
+</div>
+
+<div class="list" id="stationList"></div>
+
+</main>
+
+<nav class="bottom-nav">
+<a href="index.html"><span>🏠</span>Главная</a>
+<a href="jobs.html"><span>💼</span>Работа</a>
+<a href="garage.html"><span>🚗</span>Гараж</a>
+<a href="pass.html"><span>🏆</span>Pass</a>
+<a href="profile.html"><span>👤</span>Профиль</a>
+</nav>
+
+<script>
+const SUPABASE_URL="https://qzswnoeglovfpgrzpnio.supabase.co";
+const SUPABASE_KEY="sb_publishable_k_mSqLmEL-OMvM5x7slx7w_EqR0HXqY";
+
+let currentUser=null;
+let currentAuthUser=null;
+let currentFilter="all";
+
+/*
+ ДЕМОНСТРАЦИОННЫЕ ДАННЫЕ.
+ После создания таблиц Supabase заменим их
+ реальными данными и серверной арендой.
+*/
+const stations=[
+{id:1,name:"Центральная АЗС",location:"Центр города",type:"Городская",pumps:6,rent:120000,owner:null},
+{id:2,name:"Заправка у трассы",location:"Южная трасса",type:"Трассовая",pumps:10,rent:200000,owner:"Dimulyaaa"},
+{id:3,name:"Северная АЗС",location:"Северный район",type:"Малая",pumps:2,rent:50000,owner:null},
+{id:4,name:"Западная АЗС",location:"Западный район",type:"Городская",pumps:6,rent:120000,owner:"Alex_RP"},
+{id:5,name:"Восточная АЗС",location:"Восточный район",type:"Малая",pumps:2,rent:50000,owner:null},
+{id:6,name:"Пригородная АЗС",location:"Пригород",type:"Трассовая",pumps:10,rent:200000,owner:null}
+];
+
+function money(n){
+return "₽ "+Number(n||0).toLocaleString("ru-RU");
+}
+
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+}
+
+async function api(path,options={}){
+const token=options.token||localStorage.getItem("brp_access_token")||SUPABASE_KEY;
+const fetchOptions={...options};
+delete fetchOptions.token;
+const headers={
+apikey:SUPABASE_KEY,
+Authorization:"Bearer "+token,
+"Content-Type":"application/json",
+...(options.headers||{})
+};
+const response=await fetch(SUPABASE_URL+path,{...fetchOptions,headers});
+const raw=await response.text();
+let data;
+try{data=raw?JSON.parse(raw):null}catch{data=raw}
+if(!response.ok)throw Error(typeof data==="string"?data:JSON.stringify(data));
+return data;
+}
+
+async function loadPlayer(){
+const token=localStorage.getItem("brp_access_token");
+if(!token){
+location.href="index.html";
+return false;
+}
+try{
+currentAuthUser=await api("/auth/v1/user");
+if(!currentAuthUser?.id)throw Error("Нет пользователя");
+const rows=await api(
+"/rest/v1/profiles?id=eq."+encodeURIComponent(currentAuthUser.id)+"&select=*"
+);
+if(!rows?.length)throw Error("Профиль не найден");
+currentUser=rows[0];
+document.getElementById("playerName").textContent=currentUser.username||"Игрок";
+document.getElementById("topCash").textContent=money(currentUser.cash);
+return true;
+}catch(e){
+console.error(e);
+location.href="index.html";
+return false;
+}
+}
+
+function renderStations(){
+const list=document.getElementById("stationList");
+const visible=stations.filter(s=>{
+if(currentFilter==="free")return !s.owner;
+if(currentFilter==="busy")return !!s.owner;
+return true;
+});
+
+document.getElementById("totalCount").textContent=stations.length;
+document.getElementById("freeCount").textContent=stations.filter(s=>!s.owner).length;
+document.getElementById("busyCount").textContent=stations.filter(s=>s.owner).length;
+document.getElementById("myCount").textContent=
+stations.filter(s=>s.owner===currentUser?.username).length+" / 1";
+
+if(!visible.length){
+list.innerHTML='<div class="empty">В этой категории пока нет заправок.</div>';
+return;
+}
+
+list.innerHTML=visible.map(s=>{
+const busy=!!s.owner;
+return `
+<article class="station">
+<div class="station-top">
+<div>
+<div class="station-number">ГОСУДАРСТВЕННАЯ АЗС №${s.id}</div>
+<div class="station-icon">⛽</div>
+</div>
+<span class="status ${busy?"busy":""}">
+${busy?"ЗАНЯТА":"СВОБОДНА"}
+</span>
+</div>
+<div class="station-body">
+<h3>${escapeHTML(s.name)}</h3>
+<p class="muted">📍 ${escapeHTML(s.location)} · ${escapeHTML(s.type)}</p>
+<div class="details">
+<div class="detail">
+<small>ТОПЛИВНЫХ КОЛОНОК</small>
+<b>${s.pumps}</b>
+</div>
+<div class="detail">
+<small>АРЕНДА ЗА СУТКИ</small>
+<b class="red-text">${money(s.rent)}</b>
+</div>
+</div>
+${busy?`
+<p class="muted" style="margin-bottom:13px">
+Арендатор: <b style="color:white">${escapeHTML(s.owner)}</b>
+</p>`:""}
+<div class="station-footer">
+<div class="price">
+${money(s.rent)}
+<small>Стоимость аренды / сутки</small>
+</div>
+<a class="action ${busy?"":"red"}"
+href="station.html?id=${s.id}">
+ПОДРОБНЕЕ →
+</a>
+</div>
+</div>
+</article>`;
+}).join("");
+}
+
+function setFilter(filter,button){
+currentFilter=filter;
+document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+renderStations();
+}
+
+document.addEventListener("DOMContentLoaded",async()=>{
+const ok=await loadPlayer();
+if(!ok)return;
+renderStations();
+});
+</script>
+</body>
+</html>
